@@ -10,7 +10,7 @@ export const request = async (url: string, method: string, header?: HeadersInit,
     }
 }
 
-export interface globalResponse {
+export interface IGlobalResponse {
     status: number;
     message: string;
 }

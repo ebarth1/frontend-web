@@ -1,23 +1,44 @@
-import { getIngridients, IIngridientsData } from "@/services/Foodplanner/foodplanner";
-import type { GetServerSideProps } from "next";
+"use client";
 
-interface IProps {
-    ingridients: IIngridientsData[]
-}
+import { useState } from "react";
+import { Button, Card } from "react-bootstrap";
+import FoodPlannerAdminView from "../components/FoodPlanner/Admin/FoodPlannerAdminView";
 
-export default function FoodPlanner(props: IProps) {
-    console.log(props);
+
+export default function FoodPlanner() {
+    const [viewPageType, setViewPageType] = useState<string>();
+
     return(
-        <h1>Food-Planner</h1>
+        <div>
+            <div className="m-1">
+                <Button
+                    variant="outline-dark"
+                    className="m-1"
+                    onClick={() => setViewPageType("planner")}
+                >
+                    Planner
+                </Button>
+                <Button
+                    variant="outline-dark"
+                    className="m-1"
+                    onClick={() => setViewPageType("admin")}
+                >
+                    Administration
+                </Button>
+                <Button
+                    variant="outline-dark"
+                    className="m-1"
+                    onClick={(() => setViewPageType(undefined))}
+                    hidden={!viewPageType}
+                >
+                    Back to Startpage
+                </Button>
+            </div>
+            <hr />
+            {viewPageType === "admin" &&
+                <FoodPlannerAdminView/>
+            }
+        </div>
     );
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-    const ingridientsData = getIngridients();
-    return {
-        props: {
-            ingridients: ingridientsData
-        }
-    }
 }
 
