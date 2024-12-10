@@ -1,6 +1,6 @@
 export const request = async (url: string, method: string, header?: HeadersInit, requestBody?: BodyInit) => { 
     try {
-        return await fetch(url, {
+        return await fetch(process.env.BACKEND_URL +  url, {
             method: method,
             headers: header,
             body: requestBody 
@@ -8,4 +8,9 @@ export const request = async (url: string, method: string, header?: HeadersInit,
     } catch (requestError) {
         return requestError;
     }
+}
+
+export interface globalResponse {
+    status: number;
+    message: string;
 }
